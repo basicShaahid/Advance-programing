@@ -1,24 +1,18 @@
 class Account {
-
     private String name;
     private String ID;
     public double balance;
-    private int withdrawals; // Track the number of withdrawals
+    private int withdrawals; 
 
-    // Corrected constructor
     public Account(String name, String ID, double balance) {
         this.name = name;
         this.ID = ID;
         this.balance = balance;
         this.withdrawals = 0;
     }
-
-    // Corrected getBalance method
     public double getBalance() {
         return balance;
     }
-
-    // Modified withdraw method
     public boolean withdraw(double amt) {
         if (balance >= amt) {
             balance -= amt;
@@ -29,21 +23,17 @@ class Account {
             return false;
         }
     }
-
     public void deposit(double amt) {
         balance += amt;
     }
-
-    // New method to add interest
     public void addInterest(double interestRate) {
         balance += balance * (interestRate / 100);
     }
-    
-    // Getter for name
     public String getName() {
         return name;
     }
 }
+
 
 public class TestAccount {
     public static void main(String[] args) {
@@ -54,11 +44,8 @@ public class TestAccount {
         a1.withdraw(2000);
         a2.deposit(120);
         a2.withdraw(80);
-        
         System.out.println("Balance for " + a1.getName() + " is " + a1.getBalance());
         System.out.println("Balance for " + a2.getName() + " is " + a2.getBalance());
-        
-        // Example of adding interest
         a2.addInterest(5.0);
         System.out.println("Balance for " + a2.getName() + " after adding interest is " + a2.getBalance());
     }
