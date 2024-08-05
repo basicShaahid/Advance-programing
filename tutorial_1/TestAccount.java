@@ -50,3 +50,59 @@ public class TestAccount {
         System.out.println("Balance for " + a2.getName() + " after adding interest is " + a2.getBalance());
     }
 }
+
+class CAccount extends Account {
+
+private double limit;
+private double overdrawn;
+public CAccount(String name, String ID, double balance, double limit) {
+super(name, ID, balance);
+this.limit = limit;
+overdrawn = 0.0;
+}
+
+public void deposit(double amt) {
+    if (amt >0) {
+        if (amt < overdrawn) {
+        overdrawn -= amt;
+        }
+        else {
+        super.deposit(amt - overdrawn);
+        overdrawn = 0.0;
+        }
+    }
+}
+
+public boolean withdraw(double amt) {
+        if (amt > 0 && amt <= getBalance())
+            {
+            return super.withdraw(amt);
+            }
+        else if (amt > 0 && amt - getBalance() <= limit - overdrawn) {
+            overdrawn += amt - getBalance();
+            return super.withdraw(getBalance());
+            }
+        else {
+            return false;
+        }
+}
+
+public class TestCAccount {
+    public static void main(String args[]) {
+        CAccount c1 = new CAccount("Tim", "C126", 250, 1000);
+        c1.deposit(500);
+        System.out.println(c1.getBalance());
+        withdrawAttempt(c1, 700);
+        withdrawAttempt(c1, 700);
+        }
+
+    public static void withdrawAttempt(CAccount c, double amt) {
+        if (c.withdraw(amt) == true) {
+            System.out.println(c.getName() + " successfully withdrew " + amt);
+        } 
+        else {
+            System.out.println("Attempt to withdraw " + amt + " by " + c.getName() + "failed");
+        }
+    }
+}
+}
