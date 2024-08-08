@@ -1,4 +1,4 @@
-abstract class EmployeePerson implements Printable, Comparable{
+abstract class EmployeePerson implements Printable, Comparable {
     protected String fullName;       // In the format last name, first name
     protected String departmentCode;
     protected String birthday;
@@ -13,6 +13,12 @@ abstract class EmployeePerson implements Printable, Comparable{
     }
 
     // ***********************************************************************
+    // Constructor with parameters to set the private variables
+    public EmployeePerson(String empFullName, String empDepartmentCode,
+                          String empBirthday, int empAnnualSalary) {
+        setData(empFullName, empDepartmentCode, empBirthday, empAnnualSalary);
+    }
+    // ***********************************************************************
 
     public void setData(String empFullName, String empDepartmentCode,
                         String empBirthday, int empAnnualSalary) {
@@ -23,16 +29,12 @@ abstract class EmployeePerson implements Printable, Comparable{
     }
 
     // ***********************************************************************
-
-    // TODO Create a Constructor with parameters to set the private variables
-    //  Hint: Use the setData method
-
-
+    // Abstract method to be implemented by subclasses
+    public abstract int getAnnualBonus();
     // ***********************************************************************
 
-    // TODO Create an abstract method int getAnnualBonus()
-
-
-    // TODO: (Stage 2) Implement compareTo(Object o) method.
-
+    // TODO: Implement compareTo method
+    public int compareTo(EmployeePerson o) {
+        return Integer.compare(this.annualSalary, o.annualSalary);
+    }
 }
